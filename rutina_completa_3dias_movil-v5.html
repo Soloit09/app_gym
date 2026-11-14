@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rutina Completa 3 Días: Pecho/Brazos, Espalda/Lumbares, Pierna/Abdomen</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dark: #0284c7;
+      --badge-bg: #0f172a;
+      --success: #22c55e;
+      --warning: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 16px;
+      padding-bottom: calc(150px + env(safe-area-inset-bottom));
+      overflow-wrap: anywhere;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 12px;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Pestañas selectoras de rutina (3 días responsive) */
+    .routine-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      background-color: var(--card-bg);
+      padding: 6px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 6px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .tab-btn span.day-tag {
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      opacity: 0.85;
+      margin-bottom: 2px;
+    }
+
+    .tab-btn.active {
+      background-color: var(--accent-dark);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+    }
+
+    .routine-section {
+      display: none;
+    }
+
+    .routine-section.active {
+      display: block;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+
+    .stat-box span.label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-box span.value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .rir-note {
+      background-color: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      margin-bottom: 24px;
+    }
+
+    .rir-note strong {
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+
+    .exercise-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .exercise-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .muscle-tag {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* Contenedor de imagen / esquema de la máquina */
+    .machine-media {
+      background: linear-gradient(180deg, #0f172a 0%, #162033 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .machine-media img,
+    .machine-media svg {
+      width: 100%;
+      height: auto;
+      max-height: 220px;
+      display: block;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+
+    .machine-caption {
+      background-color: rgba(15, 23, 42, 0.85);
+      border-top: 1px solid var(--card-border);
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .machine-caption span.vector-tag {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      background-color: var(--badge-bg);
+      border: 1px solid var(--card-border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .badge.highlight {
+      border-color: var(--accent-dark);
+      color: var(--accent);
+    }
+
+    .steps {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+
+    .steps li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .steps li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .steps li strong {
+      color: #f8fafc;
+    }
+
+    .tracker-box {
+      background-color: var(--bg-color);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tracker-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .sets-check {
+      display: flex;
+      gap: 8px;
+    }
+
+    .set-btn {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .set-btn.done {
+      background-color: var(--success);
+      border-color: var(--success);
+      color: #052e16;
+    }
+
+    .progression-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 24px;
+    }
+
+    .timer-bar {
+      position: sticky;
+      bottom: 12px;
+      background-color: #0f172a;
+      border: 1px solid var(--accent-dark);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+      margin-top: 20px;
+      z-index: 50;
+      transition: all 0.3s ease;
+    }
+
+    .timer-bar.finished {
+      border-color: var(--success);
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.45);
+      animation: pulse-alert 0.7s ease-in-out 3;
+    }
+
+    @keyframes pulse-alert {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .timer-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timer-display {
+      font-size: 1.25rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+    }
+
+    .timer-bar.finished .timer-display {
+      color: var(--success);
+    }
+
+    .sound-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--accent);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .sound-toggle.muted {
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-timer {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-timer.primary {
+      background-color: var(--accent-dark);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .youtube-settings {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      margin: 0 0 20px;
+    }
+
+    .youtube-settings label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .youtube-settings p,
+    .youtube-status {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .youtube-search-btn {
+      background: var(--accent-dark);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      color: #fff;
+      padding: 9px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .youtube-search-btn:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    button, input { font: inherit; touch-action: manipulation; }
+    button, .youtube-result { min-height: 48px; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .youtube-query { width: 100%; min-width: 0; min-height: 48px; padding: 10px; margin: 6px 0 10px; border: 1px solid var(--card-border); border-radius: 8px; background: var(--bg-color); color: var(--text-main); font-size: 16px; }
+    .youtube-label { display: block; font-weight: 600; font-size: .9rem; }
+    .youtube-status { margin-top: 8px; }
+    .youtube-search-btn { width: 100%; min-height: 48px; }
+
+    .youtube-tools {
+      margin-top: 14px;
+    }
+
+    .youtube-results {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .youtube-result {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      padding: 8px;
+      background: var(--bg-color);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .youtube-result:hover,
+    .youtube-result:focus-visible {
+      border-color: var(--accent);
+    }
+
+    .youtube-result img {
+      display: block;
+      width: 120px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 6px;
+      background: var(--card-bg);
+    }
+
+    .youtube-result-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .youtube-result-channel {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin-top: 4px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 24px;
+      padding-bottom: 24px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 420px) {
+      body {
+        padding: 12px;
+      }
+      header h1 {
+        font-size: 1.25rem;
+      }
+      .exercise-card {
+        padding: 14px;
+      }
+      .machine-caption {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      .tab-btn {
+        font-size: 0.74rem;
+        padding: 8px 4px;
+      }
+      .btn-timer {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+      }
+      .youtube-result {
+        grid-template-columns: 96px minmax(0, 1fr);
+      }
+      .youtube-result img {
+        width: 96px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 id="mainTitle">Plan Integral en Máquinas</h1>
+    <p>3 Días (Push / Pull / Legs &amp; Core) &bull; Nivel Intermedio</p>
+  </header>
+
+  <!-- Selector de Rutina (3 Pestañas Táctiles para Móvil) -->
+  <div class="routine-tabs">
+    <button class="tab-btn active" onclick="switchRoutine('pecho', this)">
+      <span class="day-tag">Día A</span>
+      Pecho y Brazos
+    </button>
+    <button class="tab-btn" onclick="switchRoutine('espalda', this)">
+      <span class="day-tag">Día B</span>
+      Espalda y Lumbar
+    </button>
+    <button class="tab-btn" onclick="switchRoutine('piernas', this)">
+      <span class="day-tag">Día C</span>
+      Pierna y Abdomen
+    </button>
+  </div>
+
+  <section class="youtube-settings" aria-label="Búsqueda de videos">
+    <p>Busca Shorts desde cada ejercicio y ajusta el texto si lo necesitas. Verás un máximo de cinco resultados que se abren en YouTube. Se buscan videos cortos con #shorts; YouTube puede incluir videos que no sean Shorts.</p>
+  </section>
+
+  <div class="rir-note">
+    <strong>Esfuerzo (RIR 1–2):</strong> Termina cada serie sintiendo que solo podrías hacer 1 o 2 repeticiones más con buena técnica antes del fallo muscular.
+  </div>
+
+  <!-- ==========================================
+       SECCIÓN 1: DÍA A - PECHO Y BRAZOS
+       ========================================== -->
+  <div id="rutina-pecho" class="routine-section active">
+    <div class="summary-grid">
+      <div class="stat-box">
+        <span class="label">Ejercicios</span>
+        <span class="value">4 Máquinas</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Series Totales</span>
+        <span class="value">15 Series</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Enfoque</span>
+        <span class="value">Empuje + Brazo</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">Pecho y Brazos: Ejecución</h2>
+
+    <!-- Ejercicio A1 -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">1. Press de Pecho Sentado</h3>
+          <span class="muscle-tag">Pectoral Mayor &bull; Deltoides Anterior &bull; Tríceps</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Press de Pecho Sentado">
+          <defs>
+            <pattern id="grid1" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1e293b" stroke-width="1"/>
+            </pattern>
+            <marker id="arrow1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="65" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="72" y1="45" x2="103" y2="45" stroke="#64748b" stroke-width="4"/>
+          <line x1="72" y1="57" x2="103" y2="57" stroke="#64748b" stroke-width="4"/>
+          <line x1="72" y1="69" x2="103" y2="69" stroke="#64748b" stroke-width="4"/>
+          <line x1="72" y1="81" x2="103" y2="81" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="72" y1="93" x2="103" y2="93" stroke="#334155" stroke-width="4"/>
+          <line x1="72" y1="105" x2="103" y2="105" stroke="#334155" stroke-width="4"/>
+          <path d="M 110 175 L 270 175 M 165 175 L 165 35 L 245 35" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="172" y="65" width="14" height="65" rx="5" transform="rotate(-8 172 65)" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="180" y="132" width="42" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="198" y1="144" x2="198" y2="175" stroke="#64748b" stroke-width="5"/>
+          <circle cx="240" cy="35" r="6" fill="#38bdf8"/>
+          <path d="M 240 35 L 222 102" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <line x1="212" y1="102" x2="238" y2="102" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 240 35 L 285 95" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <path d="M 248 102 L 315 102" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow1)"/>
+          <text x="252" y="90" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">EMPUJE HORIZONTAL</text>
+          <text x="175" y="55" fill="#94a3b8" font-size="10" font-family="sans-serif">Altura: Medio pecho</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Chest Press Convergente / Guiado</strong></span>
+          <span class="vector-tag">Empuje Horizontal &rarr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">4 Series × 6–8 Reps</span>
+        <span class="badge">RIR 2</span>
+        <span class="badge">Descanso: 2 min</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Regula el asiento para que los agarres queden alineados con la parte media del pecho, no con los hombros.</li>
+        <li><strong>Postura:</strong> Apoya toda la espalda y cabeza en el respaldo, saca el pecho juntando omóplatos y afirma los pies al suelo.</li>
+        <li><strong>Ejecución:</strong> Empuja hacia adelante exhalando sin bloquear codos. Regresa controlando el peso en 2 a 3 segundos.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+          <button class="set-btn" onclick="toggleSet(this)">4</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio A2 -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">2. Aperturas en Contractora (Pec Deck)</h3>
+          <span class="muscle-tag">Aislamiento de Pectoral</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina Contractora Pec Deck">
+          <defs>
+            <marker id="arrow2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="170" y="20" width="60" height="155" rx="5" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="180" y1="115" x2="220" y2="115" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="180" y1="127" x2="220" y2="127" stroke="#64748b" stroke-width="4"/>
+          <line x1="180" y1="139" x2="220" y2="139" stroke="#64748b" stroke-width="4"/>
+          <circle cx="182" cy="34" r="6" fill="#38bdf8"/>
+          <circle cx="218" cy="34" r="6" fill="#38bdf8"/>
+          <path d="M 182 34 L 115 48 L 115 115" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 218 34 L 285 48 L 285 115" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="107" y="80" width="16" height="40" rx="5" fill="#f59e0b"/>
+          <rect x="277" y="80" width="16" height="40" rx="5" fill="#f59e0b"/>
+          <rect x="186" y="65" width="28" height="62" rx="6" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="182" y="132" width="36" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <path d="M 132 100 Q 165 120 188 102" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow2)"/>
+          <path d="M 268 100 Q 235 120 212 102" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow2)"/>
+          <text x="142" y="168" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">CIERRE EN ARCO (ADUCCIÓN)</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Pec Deck / Contractora o Fly</strong></span>
+          <span class="vector-tag">&rarr; Arco Frontal &larr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">3 Series × 8–10 Reps</span>
+        <span class="badge">RIR 1–2</span>
+        <span class="badge">Descanso: 90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Coloca el asiento para que los brazos queden paralelos al suelo y ajusta el recorrido sin forzar el hombro.</li>
+        <li><strong>Postura:</strong> Zona lumbar pegada al respaldo, hombros abajo lejos de las orejas y ligera flexión fija en los codos.</li>
+        <li><strong>Ejecución:</strong> Junta los agarres frente al esternón apretando el pecho 1 segundo. Abre lentamente resistiendo la carga.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio A3 -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">3. Fondos en Máquina Sentado</h3>
+          <span class="muscle-tag">Fuerza de Tríceps</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Fondos Sentado para Tríceps">
+          <defs>
+            <marker id="arrow3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="70" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="77" y1="60" x2="108" y2="60" stroke="#64748b" stroke-width="4"/>
+          <line x1="77" y1="72" x2="108" y2="72" stroke="#64748b" stroke-width="4"/>
+          <line x1="77" y1="84" x2="108" y2="84" stroke="#38bdf8" stroke-width="4"/>
+          <path d="M 115 175 L 280 175 M 165 175 L 165 50" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="172" y="60" width="14" height="65" rx="5" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="178" y="130" width="44" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="200" y1="142" x2="200" y2="175" stroke="#64748b" stroke-width="5"/>
+          <circle cx="150" cy="95" r="6" fill="#38bdf8"/>
+          <path d="M 150 95 L 235 95" fill="none" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round"/>
+          <rect x="218" y="88" width="26" height="12" rx="4" fill="#f59e0b"/>
+          <path d="M 150 95 L 230 138" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <path d="M 260 80 L 260 142" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow3)"/>
+          <text x="272" y="115" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">EMPUJE VERTICAL</text>
+          <text x="272" y="130" fill="#94a3b8" font-size="10" font-family="sans-serif">Agarre cerrado</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Seated Dip / Triceps Press</strong></span>
+          <span class="vector-tag">Empuje Inferior &darr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">4 Series × 6–8 Reps</span>
+        <span class="badge">RIR 2</span>
+        <span class="badge">Descanso: 2 min</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Selecciona una carga controlable y usa el agarre estrecho (neutro) para enfocar los tríceps.</li>
+        <li><strong>Postura:</strong> Torso erguido, abdomen firme y codos apuntando hacia atrás pegados al cuerpo.</li>
+        <li><strong>Ejecución:</strong> Empuja hacia abajo hasta extender por completo los brazos. Sube despacio hasta formar 90° en los codos.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+          <button class="set-btn" onclick="toggleSet(this)">4</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio A4 -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">4. Curl de Bíceps en Predicador</h3>
+          <span class="muscle-tag">Aislamiento de Bíceps Braquial</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Curl de Bíceps en Banco Scott Predicador">
+          <defs>
+            <marker id="arrow4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="285" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="292" y1="65" x2="323" y2="65" stroke="#64748b" stroke-width="4"/>
+          <line x1="292" y1="77" x2="323" y2="77" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="292" y1="89" x2="323" y2="89" stroke="#334155" stroke-width="4"/>
+          <path d="M 95 175 L 285 175 M 195 175 L 195 100" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="115" y="130" width="40" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="135" y1="142" x2="135" y2="175" stroke="#64748b" stroke-width="5"/>
+          <path d="M 175 72 L 212 115 L 198 126 L 161 83 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="212" cy="112" r="6" fill="#38bdf8"/>
+          <path d="M 212 112 L 265 132" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="268" cy="133" r="7" fill="#f59e0b"/>
+          <path d="M 212 112 L 235 60" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <path d="M 272 118 Q 272 72 244 58" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow4)"/>
+          <text x="75" y="55" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">FLEXIÓN DE CODO EN ARCO</text>
+          <text x="75" y="70" fill="#94a3b8" font-size="10" font-family="sans-serif">Codo alineado al eje azul</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Preacher Curl / Bíceps en Banco Scott</strong></span>
+          <span class="vector-tag">Flexión en Arco &uarr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">4 Series × 8–10 Reps</span>
+        <span class="badge">RIR 1–2</span>
+        <span class="badge">Descanso: 90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Regula el asiento para que las axilas descansen en el borde superior del cojín y los codos coincidan con el eje.</li>
+        <li><strong>Postura:</strong> Apoya toda la parte posterior de los brazos en la almohadilla, muñecas rectas y sin inclinarte hacia atrás.</li>
+        <li><strong>Ejecución:</strong> Flexiona los codos llevando el agarre hacia los hombros. Baja despacio sin perder tensión al final.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+          <button class="set-btn" onclick="toggleSet(this)">4</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- ==========================================
+       SECCIÓN 2: DÍA B - ESPALDA Y LUMBARES
+       ========================================== -->
+  <div id="rutina-espalda" class="routine-section">
+    <div class="summary-grid">
+      <div class="stat-box">
+        <span class="label">Ejercicios</span>
+        <span class="value">4 Máquinas</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Series Totales</span>
+        <span class="value">14 Series</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Enfoque</span>
+        <span class="value">Tracción + Lumbar</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">Espalda y Lumbares: Ejecución</h2>
+
+    <!-- Ejercicio B1: Jalón al Pecho -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">1. Jalón al Pecho en Polea Alta</h3>
+          <span class="muscle-tag">Dorsal Ancho (Amplitud) &bull; Redondo Mayor &bull; Bíceps</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Jalón al Pecho">
+          <defs>
+            <marker id="arrowB1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="75" y="20" width="45" height="155" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="82" y1="55" x2="113" y2="55" stroke="#64748b" stroke-width="4"/>
+          <line x1="82" y1="67" x2="113" y2="67" stroke="#64748b" stroke-width="4"/>
+          <line x1="82" y1="79" x2="113" y2="79" stroke="#38bdf8" stroke-width="4"/>
+          <path d="M 97 20 L 215 20 M 120 175 L 265 175 M 160 20 L 160 175" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="215" cy="24" r="6" fill="#38bdf8"/>
+          <line x1="215" y1="30" x2="215" y2="58" stroke="#cbd5e1" stroke-width="2"/>
+          <path d="M 175 62 L 190 58 L 240 58 L 255 62" fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 180 102 L 250 102" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <line x1="160" y1="122" x2="195" y2="122" stroke="#64748b" stroke-width="4"/>
+          <circle cx="188" cy="118" r="8" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="203" cy="118" r="8" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="190" y="138" width="45" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="212" y1="150" x2="212" y2="175" stroke="#64748b" stroke-width="5"/>
+          <path d="M 272 52 L 272 108" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowB1)"/>
+          <text x="284" y="78" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">TRACCIÓN VERTICAL</text>
+          <text x="284" y="93" fill="#94a3b8" font-size="10" font-family="sans-serif">Hacia la clavícula</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Lat Pulldown / Polea Alta con Rodillos</strong></span>
+          <span class="vector-tag">Tracción Superior &darr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">4 Series × 8–10 Reps</span>
+        <span class="badge">RIR 2</span>
+        <span class="badge">Descanso: 2 min</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Fija los rodillos acolchados firmemente sobre tus muslos para que el peso no te levante del asiento.</li>
+        <li><strong>Postura:</strong> Sujeta la barra un poco más ancho que los hombros, saca el pecho e inclina el torso ligeramente hacia atrás (10°–15°).</li>
+        <li><strong>Ejecución:</strong> Jala la barra hacia la parte superior del pecho dirigiendo los codos hacia abajo y al costado. Sube lento estirando los dorsales.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+          <button class="set-btn" onclick="toggleSet(this)">4</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio B2: Remo Sentado con Apoyo al Pecho -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">2. Remo Sentado en Máquina (Con Apoyo)</h3>
+          <span class="muscle-tag">Espalda Media (Densidad) &bull; Romboides &bull; Trapecio Medio</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Remo Sentado con Apoyo en el Pecho">
+          <defs>
+            <marker id="arrowB2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="75" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="82" y1="55" x2="113" y2="55" stroke="#64748b" stroke-width="4"/>
+          <line x1="82" y1="67" x2="113" y2="67" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="82" y1="79" x2="113" y2="79" stroke="#64748b" stroke-width="4"/>
+          <path d="M 120 175 L 285 175 M 160 175 L 160 40" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="202" y="68" width="14" height="48" rx="5" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="209" y1="116" x2="209" y2="175" stroke="#64748b" stroke-width="4"/>
+          <rect x="232" y="132" width="42" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="253" y1="144" x2="253" y2="175" stroke="#64748b" stroke-width="5"/>
+          <circle cx="160" cy="40" r="6" fill="#38bdf8"/>
+          <path d="M 160 40 L 185 95" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <rect x="178" y="88" width="16" height="16" rx="3" fill="#f59e0b"/>
+          <path d="M 160 40 L 232 95" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <path d="M 168 58 L 245 58" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowB2)"/>
+          <text x="225" y="45" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">TRACCIÓN HORIZONTAL</text>
+          <text x="225" y="60" fill="#94a3b8" font-size="10" font-family="sans-serif">Pecho apoyado al cojín</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Seated Row / Remo con Apoyo al Pecho</strong></span>
+          <span class="vector-tag">Tracción Horizontal &rarr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">4 Series × 8–10 Reps</span>
+        <span class="badge">RIR 1–2</span>
+        <span class="badge">Descanso: 2 min</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Regula el asiento y el cojín pectoral para que al estirar los brazos alcances los agarres sin despegar el esternón.</li>
+        <li><strong>Postura:</strong> Mantén el pecho apoyado en la almohadilla durante toda la serie (esto protege tu zona lumbar de sobrecargas).</li>
+        <li><strong>Ejecución:</strong> Jala llevando los codos hacia atrás y juntando fuerte las escápulas 1 segundo. Regresa controlado.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+          <button class="set-btn" onclick="toggleSet(this)">4</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio B3: Deltoides Posterior en Contractora Inversa -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">3. Vuelos Posteriores en Contractora (Reverse Fly)</h3>
+          <span class="muscle-tag">Espalda Alta &bull; Deltoides Posterior &bull; Trapecio</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina Pec Deck Inverso para Espalda Alta">
+          <defs>
+            <marker id="arrowB3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="170" y="20" width="60" height="155" rx="5" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="180" y1="120" x2="220" y2="120" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="180" y1="132" x2="220" y2="132" stroke="#64748b" stroke-width="4"/>
+          <circle cx="185" cy="34" r="6" fill="#38bdf8"/>
+          <circle cx="215" cy="34" r="6" fill="#38bdf8"/>
+          <path d="M 185 34 L 160 50 L 160 110" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <path d="M 215 34 L 240 50 L 240 110" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <rect x="150" y="85" width="18" height="10" rx="3" fill="#f59e0b"/>
+          <rect x="232" y="85" width="18" height="10" rx="3" fill="#f59e0b"/>
+          <rect x="186" y="65" width="28" height="58" rx="6" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="182" y="132" width="36" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <path d="M 145 90 Q 115 95 92 112" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowB3)"/>
+          <path d="M 255 90 Q 285 95 308 112" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowB3)"/>
+          <text x="122" y="168" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">APERTURA POSTERIOR (PECHO AL COJÍN)</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Rear Delt / Pec Deck Inverso</strong></span>
+          <span class="vector-tag">&larr; Apertura Posterior &rarr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">3 Series × 10–12 Reps</span>
+        <span class="badge">RIR 1–2</span>
+        <span class="badge">Descanso: 90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Pon los brazos de la máquina cerrados al frente y siéntate mirando hacia la torre, apoyando el pecho en el respaldo.</li>
+        <li><strong>Postura:</strong> Toma los agarres a la altura de los hombros con los codos apenas flexionados y hombros relajados abajo.</li>
+        <li><strong>Ejecución:</strong> Abre los brazos en un arco amplio hacia atrás hasta alinearlos con tu torso. Vuelve despacio sin chocar placas.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio B4: Extensión Lumbar -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">4. Extensión Lumbar (Máquina o Banco 45°)</h3>
+          <span class="muscle-tag">Erectores Espinales (Lumbares) &bull; Glúteos &bull; Core Posterior</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Extensión Lumbar">
+          <defs>
+            <marker id="arrowB4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="70" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="77" y1="65" x2="108" y2="65" stroke="#64748b" stroke-width="4"/>
+          <line x1="77" y1="77" x2="108" y2="77" stroke="#38bdf8" stroke-width="4"/>
+          <path d="M 115 175 L 290 175 M 205 175 L 205 128 M 265 175 L 278 150" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="182" y="128" width="46" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="235" cy="120" r="6" fill="#f59e0b"/>
+          <circle cx="185" cy="128" r="6" fill="#38bdf8"/>
+          <path d="M 185 128 L 215 62" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="215" cy="62" r="10" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+          <path d="M 185 128 L 152 65" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <circle cx="152" cy="65" r="9" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+          <path d="M 205 46 Q 178 38 155 48" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowB4)"/>
+          <text x="232" y="55" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">EXTENSIÓN CONTROLADA</text>
+          <text x="232" y="70" fill="#94a3b8" font-size="10" font-family="sans-serif">Sin hiperextender columna</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Back Extension / Banco Lumbar 45°</strong></span>
+          <span class="vector-tag">&larr; Extensión de Tronco</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">3 Series × 10–12 Reps</span>
+        <span class="badge">RIR 2</span>
+        <span class="badge">Descanso: 90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> En máquina sentada, ubica el rodillo a la altura de los omóplatos y ajusta el cinturón/tope de muslos. En banco a 45°, el borde del cojín debe quedar justo debajo de los huesos de la cadera.</li>
+        <li><strong>Postura:</strong> Cruza los brazos sobre el pecho, activa el abdomen como un cinturón natural y mantén el cuello alineado con el resto de la columna.</li>
+        <li><strong>Ejecución:</strong> Extiende el torso de forma fluida hasta quedar en línea recta (neutro). <strong>Evita arquear en exceso hacia atrás</strong> y controla el regreso en 2–3 segundos.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- ==========================================
+       SECCIÓN 3: DÍA C - PIERNAS Y ABDOMEN
+       ========================================== -->
+  <div id="rutina-piernas" class="routine-section">
+    <div class="summary-grid">
+      <div class="stat-box">
+        <span class="label">Ejercicios</span>
+        <span class="value">5 Máquinas</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Series Totales</span>
+        <span class="value">17 Series</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Enfoque</span>
+        <span class="value">Tren Inf. + Core</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">Piernas y Abdomen: Ejecución</h2>
+
+    <!-- Ejercicio C1: Prensa de Piernas 45° -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">1. Prensa de Piernas Inclinada (Leg Press)</h3>
+          <span class="muscle-tag">Cuádriceps &bull; Glúteo Mayor &bull; Aductores</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina Prensa de Piernas 45 Grados">
+          <defs>
+            <marker id="arrowC1" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <path d="M 65 175 L 335 175 M 95 175 L 245 35 M 120 175 L 270 35" fill="none" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 275 168 L 322 122" fill="none" stroke="#0284c7" stroke-width="12" stroke-linecap="round"/>
+          <path d="M 245 162 L 275 168" fill="none" stroke="#0284c7" stroke-width="12" stroke-linecap="round"/>
+          <line x1="258" y1="158" x2="270" y2="140" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 165 82 L 210 128" fill="none" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round"/>
+          <rect x="145" y="55" width="38" height="16" rx="3" transform="rotate(-43 145 55)" fill="#38bdf8"/>
+          <path d="M 130 48 L 175 94" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <path d="M 195 72 L 145 25" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowC1)"/>
+          <text x="195" y="45" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">EMPUJE DIAGONAL 45°</text>
+          <text x="195" y="60" fill="#94a3b8" font-size="10" font-family="sans-serif">Sacro pegado al asiento</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>45° Leg Press / Prensa Horizontal</strong></span>
+          <span class="vector-tag">&nwarr; Empuje de Tren Inferior</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">4 Series × 8–10 Reps</span>
+        <span class="badge">RIR 2</span>
+        <span class="badge">Descanso: 2 min</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Coloca los pies al ancho de los hombros en la mitad de la plataforma, con las puntas ligeramente hacia afuera.</li>
+        <li><strong>Postura:</strong> Sujeta los agarres laterales y mantén la cadera y zona lumbar pegadas al cojín en todo momento (nunca levantes el glúteo al bajar).</li>
+        <li><strong>Ejecución:</strong> Baja la plataforma controlando hasta unos 90° en las rodillas y empuja fuerte con toda la planta del pie <strong>sin bloquear las rodillas</strong> arriba.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+          <button class="set-btn" onclick="toggleSet(this)">4</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio C2: Extensión de Cuádriceps -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">2. Extensión de Cuádriceps en Máquina</h3>
+          <span class="muscle-tag">Aislamiento de Cuádriceps (Recto Femoral y Vastos)</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Extensión de Cuádriceps">
+          <defs>
+            <marker id="arrowC2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="70" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="77" y1="60" x2="108" y2="60" stroke="#64748b" stroke-width="4"/>
+          <line x1="77" y1="72" x2="108" y2="72" stroke="#38bdf8" stroke-width="4"/>
+          <path d="M 115 175 L 285 175 M 180 175 L 180 120" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="148" y="55" width="14" height="65" rx="5" transform="rotate(-8 148 55)" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="158" y="116" width="52" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="175" y1="120" x2="188" y2="105" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="212" cy="122" r="6" fill="#38bdf8"/>
+          <path d="M 212 122 L 212 165" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="220" cy="162" r="8" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+          <path d="M 212 122 L 265 118" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <circle cx="268" cy="112" r="7" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+          <path d="M 235 162 Q 268 152 272 125" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowC2)"/>
+          <text x="235" y="75" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">EXTENSIÓN DE RODILLA</text>
+          <text x="235" y="90" fill="#94a3b8" font-size="10" font-family="sans-serif">Rodilla alineada al eje azul</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Leg Extension / Sillón de Cuádriceps</strong></span>
+          <span class="vector-tag">Extensión en Arco &uarr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">3 Series × 10–12 Reps</span>
+        <span class="badge">RIR 1–2</span>
+        <span class="badge">Descanso: 90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Regula el respaldo para que la corva (parte trasera de tu rodilla) apoye justo en el borde del asiento, alineada con el eje de giro, y el rodillo quede sobre el empeine bajo.</li>
+        <li><strong>Postura:</strong> Sujétate fuerte de los agarres laterales para mantener la cadera clavada en el asiento.</li>
+        <li><strong>Ejecución:</strong> Extiende las piernas hasta arriba contrayendo el cuádriceps 1 segundo. Baja lento en 2–3 segundos.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio C3: Curl Femoral Sentado -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">3. Curl Femoral Sentado (o Tumbado)</h3>
+          <span class="muscle-tag">Isquiotibiales (Bíceps Femoral, Semitendinoso)</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Curl Femoral Sentado">
+          <defs>
+            <marker id="arrowC3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="70" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="77" y1="60" x2="108" y2="60" stroke="#64748b" stroke-width="4"/>
+          <line x1="77" y1="72" x2="108" y2="72" stroke="#38bdf8" stroke-width="4"/>
+          <path d="M 115 175 L 285 175 M 180 175 L 180 120" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="148" y="55" width="14" height="65" rx="5" transform="rotate(-6 148 55)" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="158" y="116" width="52" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="180" y="96" width="28" height="10" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="194" y1="90" x2="210" y2="90" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="212" cy="122" r="6" fill="#38bdf8"/>
+          <path d="M 212 122 L 268 118" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="268" cy="126" r="8" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+          <path d="M 212 122 L 208 166" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <path d="M 278 134 Q 265 165 224 166" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowC3)"/>
+          <text x="230" y="65" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">FLEXIÓN DE RODILLA</text>
+          <text x="230" y="80" fill="#94a3b8" font-size="10" font-family="sans-serif">Rodillo detrás del tobillo</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Seated / Lying Leg Curl (Camilla o Sillón)</strong></span>
+          <span class="vector-tag">&swarr; Flexión Posterior</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">3 Series × 10–12 Reps</span>
+        <span class="badge">RIR 1–2</span>
+        <span class="badge">Descanso: 90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Coloca el rodillo inferior justo detrás de los tobillos (sobre el tendón de Aquiles) y traba firme la almohadilla superior sobre tus muslos.</li>
+        <li><strong>Postura:</strong> Mantén las puntas de los pies apuntando hacia arriba (dorsiflexión) y la espalda pegada al respaldo.</li>
+        <li><strong>Ejecución:</strong> Flexiona las rodillas llevando los talones lo más abajo y atrás posible. Sube controlando la tensión.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio C4: Elevación de Talones (Pantorrillas) -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">4. Elevación de Talones en Máquina</h3>
+          <span class="muscle-tag">Gemelos (Gastrocnemio) &bull; Sóleo</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Pantorrillas Sentado">
+          <defs>
+            <marker id="arrowC4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <path d="M 85 175 L 300 175 M 145 175 L 145 128 M 235 175 L 235 150" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="122" y="118" width="46" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="265" cy="112" r="6" fill="#38bdf8"/>
+          <path d="M 190 95 L 265 112" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+          <rect x="182" y="95" width="30" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="205" y1="95" x2="215" y2="75" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+          <rect x="218" y="148" width="24" height="8" rx="2" fill="#64748b"/>
+          <path d="M 197 75 L 197 35" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowC4)"/>
+          <path d="M 183 38 L 183 75" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3"/>
+          <text x="225" y="55" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">RANGO COMPLETO DE TOBILLO</text>
+          <text x="225" y="70" fill="#94a3b8" font-size="10" font-family="sans-serif">Pausa 1s arriba y 1s abajo</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Calf Raise (Costurera / Prensa / De Pie)</strong></span>
+          <span class="vector-tag">&uarr; Flexión Plantar &darr;</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">3 Series × 12–15 Reps</span>
+        <span class="badge">RIR 1</span>
+        <span class="badge">Descanso: 60–90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Apoya únicamente la parte delantera del pie (metatarso) en el borde del escalón, dejando los talones libres en el aire.</li>
+        <li><strong>Postura:</strong> Ajusta las almohadillas sobre las rodillas (en máquina sentada) o sobre los hombros (de pie) y destraba el seguro.</li>
+        <li><strong>Ejecución:</strong> Baja el talón todo lo posible estirando el gemelo 1 segundo; luego sube en punta al máximo y aprieta 1 segundo arriba (sin rebotar).</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ejercicio C5: Crunch Abdominal en Máquina -->
+    <article class="exercise-card">
+      <div class="card-header">
+        <div>
+          <h3 class="exercise-title">5. Crunch Abdominal en Máquina (o Polea)</h3>
+          <span class="muscle-tag">Recto Abdominal (Core Anterior) &bull; Oblicuos</span>
+        </div>
+      </div>
+
+      <div class="machine-media">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de Máquina de Crunch Abdominal">
+          <defs>
+            <marker id="arrowC5" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+            </marker>
+          </defs>
+          <rect width="400" height="200" fill="url(#grid1)"/>
+          <rect x="70" y="25" width="45" height="150" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+          <line x1="77" y1="65" x2="108" y2="65" stroke="#64748b" stroke-width="4"/>
+          <line x1="77" y1="77" x2="108" y2="77" stroke="#38bdf8" stroke-width="4"/>
+          <path d="M 115 175 L 285 175 M 195 175 L 195 125 M 165 175 L 165 55" fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
+          <rect x="172" y="65" width="12" height="55" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="178" y="125" width="42" height="12" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+          <circle cx="178" cy="95" r="6" fill="#38bdf8"/>
+          <path d="M 178 95 L 195 45 L 222 52" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="224" cy="53" r="7" fill="#f59e0b"/>
+          <path d="M 178 95 L 228 72 L 245 92" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4"/>
+          <path d="M 242 48 Q 272 68 258 98" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowC5)"/>
+          <text x="255" y="45" fill="#38bdf8" font-size="11" font-family="sans-serif" font-weight="bold">FLEXIÓN TORÁCICA</text>
+          <text x="255" y="60" fill="#94a3b8" font-size="10" font-family="sans-serif">Costillas hacia la pelvis</text>
+        </svg>
+        <div class="machine-caption">
+          <span>Máquina: <strong>Abdominal Crunch Machine / Polea Alta</strong></span>
+          <span class="vector-tag">&searr; Flexión del Tronco</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge highlight">4 Series × 12–15 Reps</span>
+        <span class="badge">RIR 1–2</span>
+        <span class="badge">Descanso: 60–90 seg</span>
+      </div>
+      <ul class="steps">
+        <li><strong>Ajuste:</strong> Regula el asiento para que el cojín superior o las correas queden sobre el pecho alto/hombros y tus pies queden fijos en los rodillos.</li>
+        <li><strong>Postura:</strong> Mantén los brazos fijos como ganchos; no tires con las manos ni dobles las muñecas.</li>
+        <li><strong>Ejecución:</strong> Exhala todo el aire mientras enrollas el torso hacia abajo acercando las costillas hacia la pelvis. Regresa despacio sin soltar la tensión abdominal.</li>
+      </ul>
+      <div class="tracker-box">
+        <span class="tracker-label">Marcar series completadas:</span>
+        <div class="sets-check">
+          <button class="set-btn" onclick="toggleSet(this)">1</button>
+          <button class="set-btn" onclick="toggleSet(this)">2</button>
+          <button class="set-btn" onclick="toggleSet(this)">3</button>
+          <button class="set-btn" onclick="toggleSet(this)">4</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <section class="progression-card">
+    <h2 class="section-title">Distribución Semanal y Progresión</h2>
+    <ul class="steps" style="margin-bottom: 0;">
+      <li><strong>Esquema de 3 días (Push / Pull / Legs):</strong> Ideal para entrenar <strong>Lunes (Día A)</strong>, <strong>Miércoles (Día B)</strong> y <strong>Viernes (Día C)</strong>, o rotar 4 días por semana descansando fines de semana.</li>
+      <li><strong>Sinergia de Core completo:</strong> El Día B fortalece la cadena posterior baja (lumbares) y el Día C trabaja la pared abdominal anterior (recto abdominal), creando un cinturón protector 360° para tu columna.</li>
+      <li><strong>Doble progresión:</strong> Mantén la carga hasta lograr el límite superior de repeticiones en todas las series con control total antes de subir un bloque de peso.</li>
+    </ul>
+  </section>
+
+  <!-- Temporizador flotante para descanso con Audio Sintetizado -->
+  <div class="timer-bar" id="timerBar">
+    <div class="timer-info">
+      <button class="sound-toggle" id="soundToggleBtn" onclick="toggleSound()" title="Activar / Silenciar sonido y probar alarma" aria-label="Alternar sonido">
+        🔊
+      </button>
+      <div>
+        <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Descanso</div>
+        <div class="timer-display" id="timerDisplay">02:00</div>
+      </div>
+    </div>
+    <div class="timer-controls">
+      <button class="btn-timer" onclick="startTimer(60)">60s</button>
+      <button class="btn-timer" onclick="startTimer(90)">90s</button>
+      <button class="btn-timer primary" onclick="startTimer(120)">2m</button>
+      <button class="btn-timer" onclick="resetTimer()">Stop</button>
+    </div>
+  </div>
+
+  <footer>
+    This is for informational purposes only. For medical advice or diagnosis, consult a professional. AI responses may include mistakes.
+  </footer>
+
+  <script>
+    // Contexto de Audio Web API (100% offline, sin archivos MP3 externos)
+    let audioCtx = null;
+    let soundEnabled = true;
+    let countdown = null;
+
+    function initializeYoutubeSearch() {
+      document.querySelectorAll('.exercise-card').forEach((card, index) => {
+        const title = card.querySelector('.exercise-title');
+        if (!title) return;
+
+        const tools = document.createElement('form');
+        tools.className = 'youtube-tools';
+
+        const searchButton = document.createElement('button');
+        searchButton.type = 'submit';
+        searchButton.className = 'youtube-search-btn';
+        searchButton.textContent = 'Buscar Shorts en YouTube';
+        searchButton.setAttribute('aria-label', `Buscar videos de ${title.textContent.trim()} en YouTube`);
+
+        const label = document.createElement('label');
+        label.className = 'youtube-label';
+        label.htmlFor = `youtube-query-${index}`;
+        label.textContent = 'Videos del ejercicio';
+        const input = document.createElement('input');
+        input.id = label.htmlFor;
+        input.className = 'youtube-query';
+        input.type = 'search';
+        input.required = true;
+        input.maxLength = 120;
+        input.value = title.textContent.replace(/^\s*\d+\.\s*/, '').trim();
+        input.enterKeyHint = 'search';
+
+        const status = document.createElement('p');
+        status.className = 'youtube-status';
+        status.setAttribute('role', 'status');
+        status.setAttribute('aria-live', 'polite');
+
+        const results = document.createElement('div');
+        results.className = 'youtube-results';
+
+        status.id = `youtube-status-${index}`;
+        input.setAttribute('aria-describedby', status.id);
+        tools.addEventListener('submit', (event) => {
+          event.preventDefault();
+          if (!input.value.trim()) {
+            status.textContent = 'Escribe el nombre de un ejercicio.';
+            input.focus();
+            return;
+          }
+          searchYoutubeVideos(input.value, searchButton, status, results);
+        });
+        tools.append(label, input, searchButton, status, results);
+        card.appendChild(tools);
+      });
+    }
+
+    async function searchYoutubeVideos(exerciseTitle, button, status, results) {
+      const query = exerciseTitle.replace(/^\s*\d+\.\s*/, '').trim();
+      const params = new URLSearchParams({ q: query });
+      if (location.protocol === 'file:') {
+        status.textContent = 'Abre esta rutina desde el servidor (consulta README.md) para buscar videos.';
+        return;
+      }
+      if (navigator.onLine === false) {
+        status.textContent = 'Sin conexión. Conéctate a Internet y vuelve a buscar.';
+        return;
+      }
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+
+      button.disabled = true;
+      status.textContent = 'Buscando videos…';
+      results.replaceChildren();
+      results.setAttribute('aria-busy', 'true');
+
+      try {
+        const response = await fetch(`/api/youtube/videos?${params.toString()}`, {
+          credentials: 'same-origin',
+          signal: controller.signal
+        });
+        if (response.redirected) {
+          throw new Error('Tu sesión expiró. Inicia sesión y vuelve a intentar.');
+        }
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || `La búsqueda falló (HTTP ${response.status}).`);
+        }
+
+        const videos = Array.isArray(data.items)
+          ? data.items.filter((item) => item.id && /^[A-Za-z0-9_-]{11}$/.test(item.id.videoId) && item.snippet).slice(0, 5)
+          : [];
+
+        if (!videos.length) {
+          status.textContent = 'No se encontraron videos para este ejercicio.';
+          return;
+        }
+
+        videos.forEach((video) => {
+          const link = document.createElement('a');
+          link.className = 'youtube-result';
+          link.href = `https://www.youtube.com/shorts/${encodeURIComponent(video.id.videoId)}`;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+
+          const thumbnail = document.createElement('img');
+          thumbnail.src = `https://i.ytimg.com/vi/${video.id.videoId}/mqdefault.jpg`;
+          thumbnail.width = 120;
+          thumbnail.height = 68;
+          thumbnail.decoding = 'async';
+          thumbnail.alt = '';
+          thumbnail.loading = 'lazy';
+
+          const text = document.createElement('span');
+          const title = document.createElement('span');
+          title.className = 'youtube-result-title';
+          const decoded = new DOMParser().parseFromString(video.snippet.title || 'Video de YouTube', 'text/html');
+          title.textContent = decoded.documentElement.textContent;
+          text.appendChild(title);
+
+          if (video.snippet.channelTitle) {
+            const channel = document.createElement('span');
+            channel.className = 'youtube-result-channel';
+            channel.textContent = video.snippet.channelTitle;
+            text.appendChild(channel);
+          }
+
+          link.append(thumbnail, text);
+          results.appendChild(link);
+        });
+        status.textContent = `Se encontraron ${videos.length} videos.`;
+      } catch (error) {
+        console.error('Error al buscar videos de YouTube:', error);
+        status.textContent = error.name === 'AbortError' ? 'La búsqueda tardó demasiado. Inténtalo de nuevo.' : `No se pudo completar la búsqueda: ${error.message}`;
+      } finally {
+        clearTimeout(timeout);
+        results.setAttribute('aria-busy', 'false');
+        button.disabled = false;
+      }
+    }
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Beep corto de confirmación o cuenta regresiva (3, 2, 1)
+    function playShortBeep(freq = 660, duration = 0.08, volume = 0.15) {
+      if (!soundEnabled) return;
+      initAudioContext();
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    // Alarma triple de fin de descanso + vibración háptica en celular
+    function playFinishAlarm() {
+      if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200, 100, 350]);
+      }
+      if (!soundEnabled) return;
+      initAudioContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      // Secuencia ascendente de gimnasio: 3 tonos claros + 1 tono alto final
+      const notes = [
+        { freq: 880, start: 0.0, dur: 0.14 },
+        { freq: 880, start: 0.18, dur: 0.14 },
+        { freq: 880, start: 0.36, dur: 0.14 },
+        { freq: 1318.5, start: 0.56, dur: 0.42 }
+      ];
+
+      notes.forEach(note => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(note.freq, now + note.start);
+
+        gain.gain.setValueAtTime(0.35, now + note.start);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + note.start + note.dur);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now + note.start);
+        osc.stop(now + note.start + note.dur);
+      });
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundToggleBtn');
+      if (soundEnabled) {
+        btn.textContent = '🔊';
+        btn.classList.remove('muted');
+        playShortBeep(880, 0.1, 0.2); // Sonido de prueba al activar
+      } else {
+        btn.textContent = '🔇';
+        btn.classList.add('muted');
+      }
+    }
+
+    function switchRoutine(routine, btnElement) {
+      document.querySelectorAll('.routine-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      if (routine === 'pecho') {
+        document.getElementById('rutina-pecho').classList.add('active');
+      } else if (routine === 'espalda') {
+        document.getElementById('rutina-espalda').classList.add('active');
+      } else if (routine === 'piernas') {
+        document.getElementById('rutina-piernas').classList.add('active');
+      }
+      btnElement.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleSet(btn) {
+      btn.classList.toggle('done');
+      if (btn.classList.contains('done')) {
+        playShortBeep(740, 0.06, 0.1);
+      }
+    }
+
+    function startTimer(seconds) {
+      // Desbloquea el motor de audio del navegador móvil en el gesto táctil
+      initAudioContext();
+      playShortBeep(520, 0.06, 0.12);
+
+      clearInterval(countdown);
+      const timerBar = document.getElementById('timerBar');
+      timerBar.classList.remove('finished');
+
+      const deadline = Date.now() + seconds * 1000;
+      let remaining = seconds;
+      updateDisplay(remaining);
+
+      countdown = setInterval(() => {
+        remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+        if (remaining > 0) {
+          updateDisplay(remaining);
+          // Avisos preventivos suaves en los últimos 3 segundos (3, 2, 1)
+          if (remaining <= 3) {
+            playShortBeep(660, 0.07, 0.15);
+          }
+        } else {
+          clearInterval(countdown);
+          document.getElementById('timerDisplay').textContent = "¡A ENTRENAR!";
+          timerBar.classList.add('finished');
+          playFinishAlarm();
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(countdown);
+      document.getElementById('timerBar').classList.remove('finished');
+      document.getElementById('timerDisplay').textContent = "02:00";
+    }
+
+    function updateDisplay(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, '0');
+      const s = (sec % 60).toString().padStart(2, '0');
+      document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+    }
+
+    initializeYoutubeSearch();
+  </script>
+</body>
+</html>
