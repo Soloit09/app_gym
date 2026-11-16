@@ -547,6 +547,74 @@
         width: 96px;
       }
     }
+
+    .planner { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; margin-bottom: 24px; }
+    .planner h2 { font-size: 1.35rem; color: var(--accent); }
+    .planner h2 small { display: block; color: var(--text-muted); font-size: .8rem; font-weight: 400; }
+    .planner p { margin: 10px 0; }
+    .planner-hint { color: #cbd5e1; font-size: .88rem; }
+    .planner a, .planner-back { color: var(--accent); }
+    .planner details { margin: 16px 0; border-top: 1px solid var(--card-border); padding-top: 12px; }
+    .planner summary { cursor: pointer; font-weight: 700; padding: 8px 0; min-height: 48px; }
+    .planner label { display: block; margin: 12px 0; font-size: .95rem; }
+    .planner input:not([type=checkbox]), .planner select, .planner textarea { display: block; width: 100%; min-width: 0; min-height: 48px; margin-top: 5px; padding: 10px; font-size: 16px; background: var(--bg-color); color: var(--text-main); border: 1px solid #64748b; border-radius: 8px; }
+    .planner button { min-height: 48px; padding: 10px 12px; border: 1px solid #64748b; border-radius: 9px; background: var(--bg-color); color: var(--text-main); cursor: pointer; }
+    .planner button:disabled { opacity: .45; cursor: default; }
+    .planner button[type=submit], #propose { background: #0369a1; width: 100%; font-weight: 700; }
+    #mix-preview { padding: 14px; margin: 14px 0; border: 1px solid var(--accent); border-radius: 10px; background: var(--bg-color); }
+    #mix-preview-list { padding-left: 24px; }
+    #mix-preview-list li { margin: 10px 0; }
+    #session-form { scroll-margin-top: 16px; }
+    .planner-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .planner-actions button { flex: 1 1 90px; }
+    .calendar-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 12px 0; }
+    .calendar-nav h3 { font-size: 1.05rem; text-transform: capitalize; }
+    .calendar { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 4px; text-align: center; }
+    .calendar > span { color: #cbd5e1; }
+    .planner .calendar-day { padding: 4px 0; font-size: .85rem; }
+    .calendar-day.completed { color: #86efac; border-color: #4ade80; }
+    .calendar-day.partial { color: #fcd34d; border-color: #fbbf24; }
+    .calendar-day.planned { color: #7dd3fc; }
+    .calendar-day[aria-pressed=true] { outline: 2px solid white; outline-offset: 0; background: #334155; }
+    .calendar-day[aria-current=date] { text-decoration: underline; text-underline-offset: 4px; }
+    .session-exercise { padding: 14px 0; border-bottom: 1px solid var(--card-border); }
+    .session-exercise h4 { font-size: 1rem; }
+    .set-entry { display: grid; grid-template-columns: 1fr 1fr 1fr 50px; gap: 8px; align-items: end; }
+    .set-entry > span { grid-column: 1 / -1; margin-top: 14px; font-size: .85rem; color: #cbd5e1; }
+    .set-entry label { margin: 0; font-size: .8rem; }
+    .set-entry input[type=checkbox] { width: 28px; height: 48px; display: block; accent-color: var(--success); }
+    .planner .set-entry input, .planner .set-entry select { padding: 7px; }
+    .planner .exclude-choice { display: flex; align-items: center; gap: 12px; }
+    .exclude-choice input { width: 24px; height: 24px; flex-shrink: 0; }
+    #planner-message:not(:empty) { padding: 12px; background: #0c4a6e; border-radius: 8px; }
+    .planner-back { display: block; padding: 12px 0; margin-top: 12px; min-height: 48px; }
+
+    [hidden] { display: none !important; }
+    body.multi-screen { padding-bottom: calc(190px + env(safe-area-inset-bottom)); }
+    .multi-screen header { padding: 14px 10px; }
+    .multi-screen header h1 { font-size: 1.2rem; }
+    .multi-screen .planner { padding: 16px; }
+    .multi-screen .planner > h2 { font-size: .9rem; color: var(--text-muted); margin-bottom: 4px; }
+    .app-screen > h2 { margin: 16px 0; }
+    .app-screen > button, .routine-choice > button { display: block; width: 100%; margin: 10px 0; }
+    #start-today { background: #0369a1; font-weight: 700; }
+    #home-routine { margin: 16px 0; font-size: 1.25rem; }
+    .routine-choice { border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+    .routine-choice h3 { font-size: 1rem; }
+    .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 680px; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); z-index: 1001; background: #0f172a; border-top: 1px solid #64748b; padding: 8px 6px calc(8px + env(safe-area-inset-bottom)); gap: 4px; }
+    .bottom-nav a { color: #cbd5e1; text-decoration: none; min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: .85rem; font-weight: 600; }
+    .bottom-nav a[aria-current=page] { background: #0369a1; color: white; }
+    .multi-screen .timer-bar { bottom: calc(82px + env(safe-area-inset-bottom)); }
+    #training-step { font-weight: 700; color: #7dd3fc; }
+    #screen-tecnica .tracker-box { display: none; }
+    #session-review { padding-top: 12px; }
+    #screen-entrenar .session-exercise { border: 0; }
+    #screen-entrenar .planner-actions { margin-bottom: 12px; }
+    #screen-catalogo .routine-tabs { margin-top: 14px; }
+
+    body[data-screen=entrenar] > header, body[data-screen=tecnica] > header,
+    body[data-screen=entrenar] .screen-brand, body[data-screen=entrenar] .screen-intro,
+    body[data-screen=tecnica] .screen-brand, body[data-screen=tecnica] .screen-intro { display: none; }
   </style>
 </head>
 <body>
@@ -1736,5 +1804,6 @@
 
     initializeYoutubeSearch();
   </script>
+  <script src="/planner.js?v=3"></script>
 </body>
 </html>

@@ -45,6 +45,10 @@ test('configuración faltante, entrada inválida y rutas privadas', async t => {
   const page = await fetch(base);
   assert.match(page.headers.get('content-type'), /text\/html/);
   assert.match(await page.text(), /Buscar Shorts/);
+  const planner = await fetch(`${base}/planner.js?v=2`);
+  assert.equal(planner.status, 200);
+  assert.match(planner.headers.get('content-type'), /javascript/);
+  assert.match(await planner.text(), /Mi entrenamiento/);
 });
 
 test('errores de YouTube no filtran detalles ni claves', async t => {

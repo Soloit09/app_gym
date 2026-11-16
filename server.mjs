@@ -75,8 +75,13 @@ export function createApp({ apiKey = process.env.YOUTUBE_API_KEY, fetchImpl = fe
       }
       if (url.pathname === '/' || url.pathname === '/rutina_completa_3dias_movil-v5.html') {
         const html = await readFile(page);
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
         return res.end(html);
+      }
+      if (url.pathname === '/planner.js') {
+        const script = await readFile(new URL('./planner.js', import.meta.url));
+        res.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'no-cache' });
+        return res.end(script);
       }
       json(404, { error: 'Página no encontrada.' });
     } catch (error) {
